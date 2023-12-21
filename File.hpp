@@ -5,9 +5,9 @@
 #include <string>
 using namespace std;
 
-class File : public Sudoku {
+class File : public Sudoku9 {
 public:
-    void saveSudoku(const Sudoku& sudoku, const string& filename);
-    Sudoku loadSudoku(const string& filename);
+    void saveSudoku(const Sudoku9& sudoku, const string& filename);
+    Sudoku9 loadSudoku(const string& filename);
 };
 #endif

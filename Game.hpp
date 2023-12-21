@@ -3,13 +3,19 @@
 
 #include "SudokuGenerator.hpp"
 #include "File.hpp"
+#include "Sudoku.hpp"
 #include <string>
-using namespace std;
 
 class Game : public SudokuGenerator, public File {
+    int gamesPlayed;
+    string filepath;
+    Sudoku9 sudoku;
+
 public:
-	void generateSudoku(string filepath, int numToRemove);
-	void printSudoku(string filepath);
-	void solveSudoku(string filepath);
+    Game(string filepath);
+    void generateSudoku(int numToRemove);
+    void printSudoku();
+    void printStats();
+    void solveSudoku();
 };
 #endif

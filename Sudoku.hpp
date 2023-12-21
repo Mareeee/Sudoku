@@ -5,12 +5,12 @@
 #include <iostream>
 using namespace std;
 
-class Sudoku {
+class Sudoku9 {
     int board[9][9];
     bool findEmptyCell(int& row, int& col) const;
 
 public:
-    Sudoku();
+    Sudoku9();
     void print() const;
     bool isValidMove(int row, int col, int num) const;
     int getCellValue(int row, int col) const;

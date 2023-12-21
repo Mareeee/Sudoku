@@ -2,7 +2,7 @@
 #include "Sudoku.hpp"
 #include <fstream>
 
-void File::saveSudoku(const Sudoku& sudoku, const string& filepath) {
+void File::saveSudoku(const Sudoku9& sudoku, const string& filepath) {
     ofstream file(filepath);
     if (file.is_open()) {
         file << "----------BOARD----------" << endl;
@@ -36,8 +36,8 @@ void File::saveSudoku(const Sudoku& sudoku, const string& filepath) {
     }
 }
 
-Sudoku File::loadSudoku(const string& filepath) {
-    Sudoku sudoku;
+Sudoku9 File::loadSudoku(const string& filepath) {
+    Sudoku9 sudoku;
 
     ifstream file(filepath);
     if (file.is_open()) {

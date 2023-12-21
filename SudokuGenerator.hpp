@@ -5,13 +5,17 @@
 #include <string>
 using namespace std;
 
-class SudokuGenerator : public Sudoku {
-//void removeNumbers(Sudoku& sudoku) const;
+class SudokuGenerator : public Sudoku9 {
+    int goodMoves;
+    int badMoves;
+
 public:
-    //Sudoku generateRandomSudoku() const;
-    void shuffleRows(Sudoku& sudoku) const;
-    void shuffleCols(Sudoku& sudoku) const;
-    void removeNumbers(Sudoku& sudoku, int numToRemove) const;
-    Sudoku generateRandomSudoku(int numToRemove) const;
+    SudokuGenerator();
+    void shuffleRows(Sudoku9& sudoku) const;
+    void shuffleCols(Sudoku9& sudoku) const;
+    void removeNumbers(Sudoku9& sudoku, int numToRemove) const;
+    Sudoku9 generateRandomSudoku(int numToRemove) const;
+    int getGoodMoves(const Sudoku9& sudoku);
+    int getBadMoves(const Sudoku9& sudoku);
 };
 #endif

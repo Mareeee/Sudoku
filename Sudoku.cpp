@@ -1,7 +1,7 @@
 ﻿#include "Sudoku.hpp"
 using namespace std;
 
-Sudoku::Sudoku() {
+Sudoku9::Sudoku9() {
     for (int i = 0; i < 9; ++i) {
         for (int j = 0; j < 9; ++j) {
             board[i][j] = 0;
@@ -9,14 +9,15 @@ Sudoku::Sudoku() {
     }
 }
 
-void Sudoku::print() const {
-    cout << "\n    --------------BOARD--------------" << endl;
+void Sudoku9::print() const {
+    system("CLS");
+    cout << "\n        ----------BOARD----------" << endl;
     for (int i = 0; i < 9; ++i) {
         if (i % 3 == 0 && i != 0) {
-            cout << "    ----------+----------+-----------" << endl;
+            cout << "        --------+-------+--------" << endl;
         }
 
-        cout << 9 - i << "   |";
+        cout << "        | ";
 
         for (int j = 0; j < 9; ++j) {
             if (j % 3 == 0 && j != 0) {
@@ -24,10 +25,10 @@ void Sudoku::print() const {
             }
 
             if (board[i][j] == 0) {
-                cout << " 0 ";
+                cout << "0 ";
             }
             else {
-                cout << " " << board[i][j] << " ";
+                cout << board[i][j] << " ";
             }
 
             if (j == 8) {
@@ -36,13 +37,12 @@ void Sudoku::print() const {
         }
         cout << endl;
     }
-    cout << "    ----------+----------+-----------" << endl;
-    cout << "\n      A  B  C    D  E  F    G  H  I" << endl;
+    cout << "        -------------------------" << endl;
 }
 
-bool Sudoku::isValidMove(int row, int col, int num) const {
+bool Sudoku9::isValidMove(int row, int col, int num) const {
     for (int i = 0; i < 9; ++i) {
-        if (board[row][i] == num || board[i][col] == num) {
+        if ((i != col && board[row][i] == num) or (i != row && board[i][col] == num)) {
             return false;
         }
     }
@@ -51,7 +51,7 @@ bool Sudoku::isValidMove(int row, int col, int num) const {
     int startCol = col - col % 3;
     for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < 3; ++j) {
-            if (board[startRow + i][startCol + j] == num) {
+            if ((startRow + i) != row && (startCol + j) != col && board[startRow + i][startCol + j] == num) {
                 return false;
             }
         }
@@ -60,7 +60,7 @@ bool Sudoku::isValidMove(int row, int col, int num) const {
     return true;
 }
 
-bool Sudoku::solve() {
+bool Sudoku9::solve() {
     int row, col;
 
     if (!findEmptyCell(row, col)) {
@@ -82,7 +82,7 @@ bool Sudoku::solve() {
     return false;
 }
 
-bool Sudoku::findEmptyCell(int& row, int& col) const {
+bool Sudoku9::findEmptyCell(int& row, int& col) const {
     for (row = 0; row < 9; ++row) {
         for (col = 0; col < 9; ++col) {
             if (board[row][col] == 0) {
@@ -93,21 +93,21 @@ bool Sudoku::findEmptyCell(int& row, int& col) const {
     return false;
 }
 
-int Sudoku::getCellValue(int row, int col) const {
+int Sudoku9::getCellValue(int row, int col) const {
     return board[row][col];
 }
 
-void Sudoku::setCellValue(int row, int col, int value) {
+void Sudoku9::setCellValue(int row, int col, int value) {
     board[row][col] = value;
 }
 
-void Sudoku::swapRows(int row1, int row2) {
+void Sudoku9::swapRows(int row1, int row2) {
     for (int col = 0; col < 9; ++col) {
         swap(board[row1][col], board[row2][col]);
     }
 }
 
-void Sudoku::swapCols(int col1, int col2) {
+void Sudoku9::swapCols(int col1, int col2) {
     for (int row = 0; row < 9; ++row) {
         swap(board[row][col1], board[row][col2]);
     }
