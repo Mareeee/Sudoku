@@ -130,6 +130,17 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Sudoku.cpp" />
     <ClCompile Include="Sudoku.hpp" />
+    <ClCompile Include="File.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="SudokuGenerator.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="File.hpp" />
+    <ClInclude Include="Game.hpp" />
+    <ClInclude Include="SudokuGenerator.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Sudoku.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

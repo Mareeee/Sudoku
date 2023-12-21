@@ -1,12 +1,37 @@
 #include <iostream>
+#include "Game.hpp"
 #include "Sudoku.hpp"
 using namespace std;
 
 int main() {
+	string filepath = "Sudoku.txt";
+	Game sudoku;
 	cout << "      *****************************" << endl;
 	cout << "      *  WELCOME TO SUDOKUSPHERE! *" << endl;
-	cout << "      *****************************\n" << endl;
-	Sudoku sudoku;
-	// sudoku.solve();
-	sudoku.print();
+	cout << "      *****************************" << endl;
+	bool izlaz = false;
+	while (!izlaz) {
+		cout << "\n[1] - Solve Sudoku" << endl;
+		cout << "[2] - Generate Sudoku" << endl;
+		cout << "[3] - Print Sudoku" << endl;
+		cout << "[X] - Exit" << endl;
+		cout << "\nEnter your choice: ";
+		char input;
+		cin >> input;
+		switch (input)
+		{
+		case '1' : sudoku.solveSudoku(filepath);
+			break;
+		case '2': sudoku.generateSudoku(filepath, 69);
+			break;
+		case '3': sudoku.printSudoku(filepath);
+			break;
+		case 'x':;
+		case 'X': izlaz = true;
+			break;
+		default:
+			cout << "Invalid Input!\n" << endl;
+			break;
+		}
+	}
 }
