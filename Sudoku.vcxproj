@@ -133,13 +133,16 @@
     <ClCompile Include="File.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="SudokuGenerator.cpp" />
+    <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="File.hpp" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="SudokuGenerator.hpp" />
+    <ClInclude Include="Test.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Config.txt" />
     <Text Include="Sudoku.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

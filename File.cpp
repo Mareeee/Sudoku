@@ -1,50 +1,38 @@
 #include "File.hpp"
-#include "Sudoku.hpp"
 #include <fstream>
 
-void File::saveSudoku(const Sudoku9& sudoku, const string& filepath) {
-    ofstream file(filepath);
-    if (file.is_open()) {
-        file << "----------BOARD----------" << endl;
-        for (int i = 0; i < 9; ++i) {
-            if (i % 3 == 0 && i != 0) {
-                file << "--------+-------+--------" << endl;
-            }
-
-            file << "| ";
-
-            for (int j = 0; j < 9; ++j) {
-                if (j % 3 == 0 && j != 0) {
-                    file << "| ";
-                }
-
-                if (sudoku.getCellValue(i, j) == 0) {
-                    file << "0 ";
-                }
-                else {
-                    file << sudoku.getCellValue(i, j) << " ";
-                }
-
-                if (j == 8) {
-                    file << "|";
-                }
-            }
-            file << endl;
-        }
-        file << "-------------------------";
-        file.close();
-    }
+void File::setFilepath(const string& newSudokuFilepath, const string& newConfigFilepath) {
+    sudokuFilepath = newSudokuFilepath;
+    configFilepath = newConfigFilepath;
 }
 
-Sudoku9 File::loadSudoku(const string& filepath) {
+template <typename T>
+void writeToFile(const string& filepath, const T& data) {
+    ofstream file(filepath);
+    if (file.is_open()) {
+        file << data;
+    }
+    file.close();
+}
+
+void File::save(const Sudoku9& sudoku, int gamesPlayed) {
+    writeToFile(sudokuFilepath, sudoku);
+    writeToFile(configFilepath, gamesPlayed);
+}
+
+void File::clearConfig() {
+    writeToFile(configFilepath, 0);
+}
+
+Sudoku9 File::loadSudoku() {
     Sudoku9 sudoku;
 
-    ifstream file(filepath);
+    ifstream file(sudokuFilepath);
     if (file.is_open()) {
         string line;
         getline(file, line);
-        
-        int skipLine = 0;
+
+        int skipLine = 3;
         int i = 0;
         while (!file.eof()) {
             getline(file, line);
@@ -55,11 +43,26 @@ Sudoku9 File::loadSudoku(const string& filepath) {
 
             ++skipLine;
             int j = 0;
+            int whitespacesBefore = 0;
+            int whitespacesInside = 0;
             for (char c : line) {
-                if (c >= '0' and c <= '9') {
+                if (whitespacesBefore < 8) {
+                    ++whitespacesBefore;
+                    continue;
+                }
+                if (c >= '0' && c <= '9') {
                     sudoku.setCellValue(i, j, c - '0');
                     ++j;
                 }
+                else if (c == '|') {
+                    whitespacesInside = 0;
+                    continue;
+                }
+                else if (c == ' ' && whitespacesInside % 2 == 1) {
+                    sudoku.setCellValue(i, j, 0);
+                    ++j;
+                }
+                ++whitespacesInside;
             }
             ++i;
         }
@@ -67,4 +70,17 @@ Sudoku9 File::loadSudoku(const string& filepath) {
         file.close();
     }
     return sudoku;
+}
+
+int File::loadConfig() {
+    int gamesPlayed = 0;
+
+    ifstream file(configFilepath);
+    if (file.is_open()) {
+        string line;
+        getline(file, line);
+        gamesPlayed = stoi(line);
+        file.close();
+    }
+    return gamesPlayed;
 }

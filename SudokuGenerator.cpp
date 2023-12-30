@@ -1,8 +1,5 @@
 #include "SudokuGenerator.hpp"
-#include "Sudoku.hpp"
 #include <vector>
-
-SudokuGenerator::SudokuGenerator() : goodMoves(0), badMoves(0) {}
 
 void SudokuGenerator::shuffleRows(Sudoku9& sudoku) const {
     for (int i = 0; i < 9; i += 3) {
@@ -40,25 +37,46 @@ void SudokuGenerator::removeNumbers(Sudoku9& sudoku, int numToRemove) const {
 }
 
 Sudoku9 SudokuGenerator::generateRandomSudoku(int numToRemove) const {
+    srand(static_cast<unsigned>(time(nullptr)));
     Sudoku9 sudoku;
 
     sudoku.solve();
     shuffleRows(sudoku);
     shuffleCols(sudoku);
     removeNumbers(sudoku, numToRemove);
+    removeExcess(sudoku);
 
     return sudoku;
 }
 
-int SudokuGenerator::getGoodMoves(const Sudoku9& sudokuOG) {
-    Sudoku9 sudoku = sudokuOG;
-    goodMoves = 0;
+void SudokuGenerator::removeExcess(Sudoku9& sudoku) const {
+    const int rows = 9;
+    const int cols = 9;
+
+    for (int i = 0; i < rows; i += 3) {
+        for (int j = 0; j < cols; j += 3) {
+            int counter = 0;
+            for (int row = i; row < i + 3; ++row) {
+                for (int col = j; col < j + 3; ++col) {
+                    if (sudoku.getCellValue(row, col) != 0) {
+                        ++counter;
+                    }
+                    if (counter > 6) {
+                        sudoku.setCellValue(row, col, 0);
+                    }
+                }
+            }
+        }
+    }
+}
+
+int SudokuGenerator::getGoodMoves(const Sudoku9& sudoku) {
+    int goodMoves = 0;
     for (int i = 0; i < 9; ++i) {
         for (int j = 0; j < 9; ++j) {
             int currentValue = sudoku.getCellValue(i, j);
             if (currentValue == 0) {
-                goodMoves = 0;
-                return goodMoves;
+                return -1;
             }
             if (sudoku.isValidMove(i, j, currentValue)) {
                 ++goodMoves;
@@ -69,13 +87,12 @@ int SudokuGenerator::getGoodMoves(const Sudoku9& sudokuOG) {
 }
 
 int SudokuGenerator::getBadMoves(const Sudoku9& sudoku) {
-    badMoves = 0;
+    int badMoves = 0;
     for (int i = 0; i < 9; ++i) {
         for (int j = 0; j < 9; ++j) {
             int currentValue = sudoku.getCellValue(i, j);
             if (currentValue == 0) {
-                badMoves = 81;
-                return badMoves;
+                return -1;
             }
             if (!sudoku.isValidMove(i, j, currentValue)) {
                 ++badMoves;
@@ -83,4 +100,16 @@ int SudokuGenerator::getBadMoves(const Sudoku9& sudoku) {
         }
     }
     return badMoves;
+}
+
+bool SudokuGenerator::isFilled(const Sudoku9& sudoku) {
+    for (int i = 0; i < 9; ++i) {
+        for (int j = 0; j < 9; ++j) {
+            int currentValue = sudoku.getCellValue(i, j);
+            if (currentValue == 0) {
+                return false;
+            }
+        }
+    }
+    return true;
 }

@@ -9,37 +9,6 @@ Sudoku9::Sudoku9() {
     }
 }
 
-void Sudoku9::print() const {
-    system("CLS");
-    cout << "\n        ----------BOARD----------" << endl;
-    for (int i = 0; i < 9; ++i) {
-        if (i % 3 == 0 && i != 0) {
-            cout << "        --------+-------+--------" << endl;
-        }
-
-        cout << "        | ";
-
-        for (int j = 0; j < 9; ++j) {
-            if (j % 3 == 0 && j != 0) {
-                cout << "| ";
-            }
-
-            if (board[i][j] == 0) {
-                cout << "0 ";
-            }
-            else {
-                cout << board[i][j] << " ";
-            }
-
-            if (j == 8) {
-                cout << "|";
-            }
-        }
-        cout << endl;
-    }
-    cout << "        -------------------------" << endl;
-}
-
 bool Sudoku9::isValidMove(int row, int col, int num) const {
     for (int i = 0; i < 9; ++i) {
         if ((i != col && board[row][i] == num) or (i != row && board[i][col] == num)) {
@@ -56,7 +25,6 @@ bool Sudoku9::isValidMove(int row, int col, int num) const {
             }
         }
     }
-
     return true;
 }
 
@@ -78,7 +46,6 @@ bool Sudoku9::solve() {
             board[row][col] = 0;
         }
     }
-
     return false;
 }
 
@@ -111,4 +78,36 @@ void Sudoku9::swapCols(int col1, int col2) {
     for (int row = 0; row < 9; ++row) {
         swap(board[row][col1], board[row][col2]);
     }
+}
+
+ostream& operator<<(ostream& out, const Sudoku9& sudoku)
+{
+    out << "\n        ----------BOARD----------" << endl;
+    for (int i = 0; i < 9; ++i) {
+        if (i % 3 == 0 && i != 0) {
+            out << "        --------+-------+--------" << endl;
+        }
+
+        out << "        | ";
+
+        for (int j = 0; j < 9; ++j) {
+            if (j % 3 == 0 && j != 0) {
+                out << "| ";
+            }
+
+            if (sudoku.board[i][j] == 0) {
+                out << "  ";
+            }
+            else {
+                out << sudoku.board[i][j] << " ";
+            }
+
+            if (j == 8) {
+                out << "|";
+            }
+        }
+        out << endl;
+    }
+    out << "        -------------------------" << endl;
+    return out;
 }
