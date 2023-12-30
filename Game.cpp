@@ -1,10 +1,6 @@
 #include "Game.hpp"
 
-Game::Game(string sudokuFilepath, string configFilepath) {
-	fileHandler.setFilepath(sudokuFilepath, configFilepath);
-	sudoku = fileHandler.loadSudoku();
-	gamesPlayed = fileHandler.loadConfig();
-}
+Game::Game(string sudokuFilepath, string configFilepath) : fileHandler(sudokuFilepath, configFilepath), sudoku(fileHandler.loadSudoku()), gamesPlayed(fileHandler.loadConfig()) {}
 
 void Game::resetSudoku() {
 	cout << "\n      ******************" << endl;

@@ -111,3 +111,15 @@ ostream& operator<<(ostream& out, const Sudoku9& sudoku)
     out << "        -------------------------" << endl;
     return out;
 }
+
+bool operator==(const Sudoku9& originalSudoku, const Sudoku9& compareSudoku)
+{
+    for (int i = 0; i < 9; ++i) {
+        for (int j = 0; j < 9; ++j) {
+            if (originalSudoku.board[i][j] != compareSudoku.board[i][j]) {
+                return false;
+            }
+        }
+    }
+    return true;
+}

@@ -9,9 +9,9 @@ class File {
     string sudokuFilepath;
     string configFilepath;
 public:
-    void setFilepath(const string& newSudokuFilepath, const string& newConfigFilepath);
-    void save(const Sudoku9& sudoku, int gamesPlayed);
-    void clearConfig();
+    File(const string& newSudokuFilepath, const string& newConfigFilepath);
+    void save(const Sudoku9& sudoku, int gamesPlayed) const;
+    void clearConfig() const;
     Sudoku9 loadSudoku();
     int loadConfig();
 };

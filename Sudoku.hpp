@@ -19,5 +19,6 @@ public:
     bool solve();
 
     friend ostream& operator<< (ostream& out, const Sudoku9& sudoku);
+    friend bool operator==(const Sudoku9& originalSudoku, const Sudoku9& compareSudoku);
 };
 #endif

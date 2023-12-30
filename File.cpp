@@ -1,10 +1,7 @@
 #include "File.hpp"
 #include <fstream>
 
-void File::setFilepath(const string& newSudokuFilepath, const string& newConfigFilepath) {
-    sudokuFilepath = newSudokuFilepath;
-    configFilepath = newConfigFilepath;
-}
+File::File(const string& newSudokuFilepath, const string& newConfigFilepath) : sudokuFilepath(newSudokuFilepath), configFilepath(newConfigFilepath) {}
 
 template <typename T>
 void writeToFile(const string& filepath, const T& data) {
@@ -15,12 +12,12 @@ void writeToFile(const string& filepath, const T& data) {
     file.close();
 }
 
-void File::save(const Sudoku9& sudoku, int gamesPlayed) {
+void File::save(const Sudoku9& sudoku, int gamesPlayed) const {
     writeToFile(sudokuFilepath, sudoku);
     writeToFile(configFilepath, gamesPlayed);
 }
 
-void File::clearConfig() {
+void File::clearConfig() const {
     writeToFile(configFilepath, 0);
 }
 
