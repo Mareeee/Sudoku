@@ -17,7 +17,7 @@
  * @return An integer indicating the exit status of the program.
  */
 int main(int argc, char* argv[]) {
-	if (string(argv[3]) == "TESTa") {
+	if (string(argv[3]) == "TEST") {
 		Test test(argv[1], argv[2]);
 		test.runAll();
 	}

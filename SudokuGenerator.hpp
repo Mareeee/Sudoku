@@ -7,10 +7,6 @@
  * @brief This file contains the declaration of the SudokuGenerator class,
  *         responsible for generating Sudoku puzzles.
  *
- * @details The SudokuGenerator class provides functions to shuffle rows and
- *           columns, remove numbers, generate random Sudoku puzzles, and
- *           validate Sudoku puzzles.
- *
  * @author Marko Cvijanović
  * @date 31.12.2023.
  */
@@ -20,6 +16,7 @@ public:
     /**
      * @brief Removes excess numbers from the Sudoku puzzle.
      * @param sudoku The Sudoku puzzle.
+     * @return The generated Sudoku puzzle.
      */
     Sudoku9 generateRandomSudoku(int numToRemove) const;
 
@@ -39,13 +36,17 @@ public:
      * @brief Removes numbers from the Sudoku puzzle.
      * @param sudoku The Sudoku puzzle.
      * @param numToRemove The number of elements to remove.
+     * 
+     * randIndex is the randomly generated index within the current range (excluding elements already removed).
+     * cellPositions[randIndex] represents the element at the randomly chosen index.
+     * cellPositions[static_cast<size_t>(81 - k - 1)] represents the element at the end of the vector, considering the elements already removed (k elements removed so far).
      */
     void removeNumbers(Sudoku9& sudoku, int numToRemove) const;
 
     /**
-     * @brief Generates a random Sudoku puzzle.
-     * @param numToRemove The number of elements to remove from the generated puzzle.
-     * @return The generated Sudoku puzzle.
+     * @brief Removes excess numbers from the Sudoku puzzle by going through every submatrix and checking
+     *  whether it containts > 6 numbers. If so, it stops adding numbers to the submatrix.
+     * @param sudoku The Sudoku puzzle.
      */
     void removeExcess(Sudoku9& sudoku) const;
 };

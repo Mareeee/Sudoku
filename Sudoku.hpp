@@ -5,9 +5,7 @@
 using namespace std;
 
 /**
- * This file contains the declaration of the Sudoku class, representing
- *  a 9x9 Sudoku board. It includes member functions for solving the puzzle,
- *  checking the validity of moves, and various operations on the Sudoku board.
+ * @brief Implementation of the Sudoku class for a 9x9 Sudoku board.
  *
  * @author Marko Cvijanović
  * @date 31.12.2023.
@@ -32,7 +30,8 @@ public:
     Sudoku9();
 
     /**
-     * @brief Counts the number of valid moves in the Sudoku puzzle.
+     * @brief Counts the number of valid moves in the Sudoku puzzle. If a 0 is found, the whole sudoku is
+     *  invalid and -1 is returned.
      * @param sudoku The Sudoku puzzle.
      * @return The number of valid moves.
      */

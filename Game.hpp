@@ -7,9 +7,7 @@
 
 /**
  * @brief Represents the Sudoku game, derived from SudokuGenerator.
- * @details The Game class manages the game state, including the Sudoku board,
- *  game statistics, and file operations.
- * 
+ *
  * @author Marko Cvijanović
  * @date 31.12.2023.
  */
@@ -28,28 +26,29 @@ public:
     Game(string sudokuFilepath, string configFilepath);
     
     /**
-     * @brief Displays the looping main menu for the game.
+     * @brief Displays the main menu and handles user input for various game actions.
      */
     void menu();
 
     /**
-     * @brief Resets the Sudoku board.
+     * @brief Resets the current Sudoku game and saves the state.
      */
     void resetSudoku();
 
     /**
-     * @brief Generates a new Sudoku puzzle.
-     * @param numToRemove Number of cells to remove from the generated puzzle.
+     * @brief Generates a new Sudoku game with a specified number of cells removed.
+     * @param numToRemove The number of cells to be removed from the generated Sudoku.
      */
     void generateSudoku(int numToRemove);
 
-    /**
-     * @brief Prints the current Sudoku board.
-     */
+     /**
+      * @brief Prints the current state of the Sudoku game.
+      */
     void printSudoku();
 
     /**
-     * @brief Prints game statistics.
+     * @brief Prints statistics about the current game, including the number of games played,
+     * good moves, and bad moves (if the Sudoku is completed).
      */
     void printStats();
 
@@ -59,8 +58,14 @@ public:
     void solveSudoku();
 
     /**
-     * @brief Resets game configuration.
+     * @brief Resets the game counter by clearing the configuration file.
+     * @brief It also asks for the user confirmation when doing so.
      */
     void resetConfig();
+
+    /**
+     * @brief Prints out definitions of menu options
+    */
+    void help();
 };
 #endif

@@ -6,8 +6,6 @@
 
 /**
  * @brief Handles file operations related to Sudoku.
- * @details The File class provides functionality to save and load Sudoku data,
- * as well as manage configuration information.
  * 
  * @author Marko Cvijanović
  * @date 31.12.2023.
@@ -33,19 +31,25 @@ public:
     void save(const Sudoku9& sudoku, int gamesPlayed) const;
     
     /**
-     * @brief Clears the configuration file.
-     */
+    *@brief Clears the gamesPlayed configuration by setting it to 0.
+    */
     void clearConfig() const;
 
     /**
-     * @brief Loads Sudoku data from the Sudoku data file.
-     * @return Loaded Sudoku object.
+     * @brief Loads the Sudoku game from the Sudoku data file.
+     * skipLine Skips a line every 3 iterations, since the board consists of rows without numbers (-+---+-)
+     *
+     * whitespacesBefore Skips first 8 whitespaces, since the board is stored with 8 prefix spaces (for beauty reasons)
+     * whitespacesInside Skips empty positions when reading from a file, due to the reason that empty places
+     *  were not allowed to be represented by 0s and -1s
+     *
+     * @return The Sudoku9 object representing the loaded game state.
      */
     Sudoku9 loadSudoku();
 
     /**
-     * @brief Loads configuration data from the configuration file.
-     * @return Number of games played loaded from the configuration.
+     * @brief Loads the gamesPlayed configuration from the configuration file.
+     * @return The number of games played.
      */
     int loadConfig();
 };

@@ -1,8 +1,5 @@
 ﻿/**
  * @brief Represents the Sudoku game and provides game-related functionalities.
- * @details The Game class extends SudokuGenerator and provides methods for
- * managing and interacting with the Sudoku game, including generating new games,
- * solving the Sudoku, resetting the game, resetting the game counter, and more.
  *
  * @author Marko Cvijanović
  * @date 31.12.2023.
@@ -10,16 +7,8 @@
 
 #include "Game.hpp"
 
- /**
-  * @brief Constructor for the Game class.
-  * @param sudokuFilepath The filepath for the Sudoku data file.
-  * @param configFilepath The filepath for the configuration file.
-  */
 Game::Game(string sudokuFilepath, string configFilepath) : fileHandler(sudokuFilepath, configFilepath), sudoku(fileHandler.loadSudoku()), gamesPlayed(fileHandler.loadConfig()) {}
 
-/**
- * @brief Resets the current Sudoku game and saves the state.
- */
 void Game::resetSudoku() {
 	cout << "\n      ******************" << endl;
 	cout << "      *  SUDOKU RESET! *" << endl;
@@ -27,19 +16,12 @@ void Game::resetSudoku() {
 	fileHandler.save(sudoku, gamesPlayed);
 }
 
-/**
- * @brief Solves the current Sudoku game and saves the solved state.
- */
 void Game::solveSudoku() {
 	sudoku.solve();
 	fileHandler.save(sudoku, gamesPlayed);
 	cout << sudoku;
 }
 
-/**
- * @brief Resets the game counter by clearing the configuration file.
- * @brief It also asks for the user confirmation when doing so.
- */
 void Game::resetConfig() {
 	cout << "Are you sure that you wish to reset the game counter? Y/N: ";
 	char input;
@@ -51,10 +33,6 @@ void Game::resetConfig() {
 	}
 }
 
-/**
- * @brief Generates a new Sudoku game with a specified number of cells removed.
- * @param numToRemove The number of cells to be removed from the generated Sudoku.
- */
 void Game::generateSudoku(int numToRemove) {
 	if (sudoku.isFilled()) {
 		++gamesPlayed;
@@ -64,10 +42,6 @@ void Game::generateSudoku(int numToRemove) {
 	cout << sudoku;
 }
 
-/**
- * @brief Prints statistics about the current game, including the number of games played,
- * good moves, and bad moves (if the Sudoku is completed).
- */
 void Game::printStats() {
 	Sudoku9 checkSudoku = fileHandler.loadSudoku();
 	cout << checkSudoku << endl;
@@ -84,16 +58,24 @@ void Game::printStats() {
 	}
 }
 
-/**
- * @brief Prints the current state of the Sudoku game.
- */
+void Game::help()
+{
+	cout << "      *********" << endl;
+	cout << "      * HELP! *" << endl;
+	cout << "      *********" << endl;
+
+	cout << "\n[New Game]           - Starts a new game by generating a new Sudoku board" << endl;
+	cout << "[Reset Game]         - If the game was not saved in file but the board was modified, this will retrieve the latest saved board" << endl;
+	cout << "[Reset Game Counter] - Resets the game counter that is displayed via 'Check Stats'" << endl;
+	cout << "[Auto Solve]         - Solves the current suodku by a computer" << endl;
+	cout << "[Check Stats]        - Loads the current board from the Sudoku.txt and displays the statsistics of how well the board was solved as well as the current number of the games played (this menu option is used to load users solution of the sudoku)" << endl;
+	cout << "[Print]              - Displays the Sudoku board\n" << endl;
+}
+
 void Game::printSudoku() {
 	cout << fileHandler.loadSudoku();
 }
 
-/**
- * @brief Displays the main menu and handles user input for various game actions.
- */
 void Game::menu() {
 	cout << "      *****************************" << endl;
 	cout << "      *  WELCOME TO SUDOKUSPHERE! *" << endl;
@@ -106,6 +88,7 @@ void Game::menu() {
 		cout << "[4] - Auto Solve" << endl;
 		cout << "[5] - Check Stats" << endl;
 		cout << "[6] - Print" << endl;
+		cout << "[7] - Help" << endl;
 		cout << "[X] - Exit" << endl;
 		cout << "\nEnter your choice: ";
 		char input;
@@ -135,6 +118,10 @@ void Game::menu() {
 		case '6':
 			system("CLS");
 			printSudoku();
+			break;
+		case '7':
+			system("CLS");
+			help();
 			break;
 		case 'x':;
 		case 'X': izlaz = true;
